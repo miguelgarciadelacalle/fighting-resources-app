@@ -1,0 +1,56 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="usuarios" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dbe34302-5e59-489c-9cb3-cc025ab030ae">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<query language="sql"><![CDATA[SELECT 
+    u.id, 
+    u.nombre_usuario, 
+    COUNT(uj.id_juego) AS juegos_elegidos
+FROM 
+    usuarios u
+LEFT JOIN 
+    usuarios_juegos uj ON u.id = uj.id_usuario
+GROUP BY 
+    u.id, u.nombre_usuario
+]]></query>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuarios"/>
+	</field>
+	<field name="nombre_usuario" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_usuario"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_usuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuarios"/>
+	</field>
+	<field name="juegos_elegidos" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="juegos_elegidos"/>
+		<property name="com.jaspersoft.studio.field.label" value="juegos_elegidos"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="50" splitType="Stretch">
+		<element kind="staticText" uuid="69144123-8802-4133-b1d8-fd65411a7aa9" x="20" y="10" width="450" height="30" fontSize="16.0">
+			<text><![CDATA[Usuarios]]></text>
+		</element>
+	</title>
+	<columnHeader height="50" splitType="Stretch">
+		<element kind="staticText" uuid="a09670f2-c22e-4cbe-a49a-ad3e165773a0" x="20" y="10" width="100" height="30" fontSize="13.0">
+			<text><![CDATA[Nombre]]></text>
+		</element>
+		<element kind="staticText" uuid="364c0ff8-af73-488f-bd10-879c398f07a4" x="230" y="10" width="100" height="30" fontSize="13.0">
+			<text><![CDATA[Juegos elegidos]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<element kind="textField" uuid="bc770043-5cd2-46f5-af2e-0eac592fed97" x="20" y="10" width="100" height="30" fontSize="11.0">
+				<expression><![CDATA[$F{nombre_usuario}]]></expression>
+			</element>
+			<element kind="textField" uuid="6526b3a6-b962-43a0-b2a6-d3a6488ec252" x="230" y="10" width="100" height="30" fontSize="11.0" hTextAlign="Left">
+				<expression><![CDATA[$F{juegos_elegidos}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="20" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

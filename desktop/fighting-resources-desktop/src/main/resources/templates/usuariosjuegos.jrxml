@@ -1,0 +1,113 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="usuariosjuegos" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c3c91030-868a-4f75-a568-c2f4ff808e1d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<query language="sql"><![CDATA[SELECT
+    j.id AS juego_id,
+    j.nombre AS juego_nombre,
+    j.desarrollador AS juego_desarrollador,
+    j.lanzamiento AS juego_lanzamiento,
+    j.imagen_base64 AS juego_imagen,
+    COUNT(uj.id_usuario) AS total_usuarios,
+    ROUND(100.0 * COUNT(uj.id_usuario) / (
+        SELECT COUNT(*) FROM usuarios_juegos
+    ), 2) AS porcentaje_usuarios
+FROM juegos j
+LEFT JOIN usuarios_juegos uj ON j.id = uj.id_juego
+GROUP BY j.id, j.nombre, j.desarrollador, j.lanzamiento, j.imagen_base64
+ORDER BY total_usuarios DESC
+]]></query>
+	<field name="juego_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="juego_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juegos"/>
+	</field>
+	<field name="juego_nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="juego_nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juegos"/>
+	</field>
+	<field name="juego_desarrollador" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="desarrollador"/>
+		<property name="com.jaspersoft.studio.field.label" value="juego_desarrollador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juegos"/>
+	</field>
+	<field name="juego_lanzamiento" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="lanzamiento"/>
+		<property name="com.jaspersoft.studio.field.label" value="juego_lanzamiento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juegos"/>
+	</field>
+	<field name="juego_imagen" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="imagen_base64"/>
+		<property name="com.jaspersoft.studio.field.label" value="juego_imagen"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="juegos"/>
+	</field>
+	<field name="total_usuarios" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="total_usuarios"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_usuarios"/>
+	</field>
+	<field name="porcentaje_usuarios" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="porcentaje_usuarios"/>
+		<property name="com.jaspersoft.studio.field.label" value="porcentaje_usuarios"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="50" splitType="Stretch">
+		<element kind="staticText" uuid="df7233a4-a9b7-4f9c-9ae4-2beeac744536" x="0" y="10" width="200" height="30" fontSize="16.0">
+			<text><![CDATA[Juegos]]></text>
+		</element>
+	</title>
+	<columnHeader height="50" splitType="Stretch">
+		<element kind="staticText" uuid="d0fa38a7-563e-4a72-afac-37e845f3409c" x="0" y="15" width="100" height="30" fontSize="13.0">
+			<text><![CDATA[Nombre]]></text>
+		</element>
+		<element kind="staticText" uuid="d1766b25-ee2c-4914-ad93-89b39fce7cec" x="100" y="15" width="100" height="30" fontSize="13.0">
+			<text><![CDATA[Desarrollador]]></text>
+		</element>
+		<element kind="staticText" uuid="c4bba279-e547-4641-9ee6-a713cb4188ed" x="200" y="15" width="100" height="30" fontSize="13.0">
+			<text><![CDATA[Lanzamiento]]></text>
+		</element>
+		<element kind="staticText" uuid="8c6e595f-e34b-4d26-bff0-4dd9c728f1f2" x="300" y="15" width="100" height="30" fontSize="13.0">
+			<text><![CDATA[Usuarios]]></text>
+		</element>
+		<element kind="staticText" uuid="34b93d61-afe9-4568-bd24-47b2c64fac57" x="400" y="15" width="100" height="30" fontSize="13.0">
+			<text><![CDATA[Porcentaje]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<element kind="textField" uuid="aa0bb05f-b1ab-4700-b099-f475cac3a387" x="0" y="10" width="100" height="30" fontSize="11.0">
+				<expression><![CDATA[$F{juego_nombre}]]></expression>
+			</element>
+			<element kind="textField" uuid="3af5b02b-eb52-470a-9c9a-92fefbe23fc3" x="100" y="10" width="100" height="30" fontSize="11.0">
+				<expression><![CDATA[$F{juego_desarrollador}]]></expression>
+			</element>
+			<element kind="textField" uuid="2c59dad8-18b3-4d3b-a016-739f47bbf712" x="200" y="10" width="100" height="30" fontSize="11.0" pattern="dd/MM/yyyy">
+				<expression><![CDATA[$F{juego_lanzamiento}]]></expression>
+			</element>
+			<element kind="textField" uuid="058397d3-0c7e-4904-aae8-bedb01b9e7a9" x="300" y="10" width="100" height="30" fontSize="11.0">
+				<expression><![CDATA[$F{total_usuarios}]]></expression>
+			</element>
+			<element kind="textField" uuid="422f2e31-3996-4544-b4d4-1de54eb27f22" x="400" y="10" width="100" height="30" fontSize="11.0">
+				<expression><![CDATA[$F{porcentaje_usuarios}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="20" splitType="Stretch"/>
+	<summary height="250" splitType="Stretch">
+		<element kind="chart" chartType="pie3D" uuid="4cef4a87-079e-4c71-803f-30a6b2c1edfd" x="0" y="50" width="500" height="200" evaluationTime="Report">
+			<dataset kind="pie">
+				<series>
+					<keyExpression><![CDATA[$F{juego_nombre}]]></keyExpression>
+					<valueExpression><![CDATA[$F{porcentaje_usuarios}]]></valueExpression>
+					<labelExpression><![CDATA[$F{juego_nombre} + " (" + $F{porcentaje_usuarios} + "%)"]]></labelExpression>
+				</series>
+			</dataset>
+			<plot>
+				<itemLabel/>
+			</plot>
+		</element>
+		<element kind="staticText" uuid="8fdb9eab-cd44-43db-86be-44df70031698" x="0" y="10" width="500" height="30" fontSize="13.0">
+			<text><![CDATA[Juegos elegidos por los usuarios]]></text>
+		</element>
+	</summary>
+</jasperReport>
